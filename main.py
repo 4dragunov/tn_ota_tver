@@ -26,12 +26,17 @@ def connectToWifiAndUpdate():
     else:
         del (otaUpdater)
 
-
-wlan = wifimgr.get_connection()
-if wlan is None:
-    print("Could not initialize the network connection.")
-    while True:
-        pass  # you shall not pass :D
+try:
+    
+    wlan = wifimgr.get_connection()
+    if wlan is None:
+        print("Could not initialize the network connection.")
+        while True:
+            pass  # you shall not pass :D
+except:
+    print(' error')
+    time.sleep(1)
+    machine.reset()
 
 
 def startApp():

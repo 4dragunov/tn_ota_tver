@@ -4,7 +4,7 @@ from machine import ADC, Pin
 import time, utime
 import machine
 import dht
-#import urequests
+import urequests
 import network
 
 import ujson
@@ -20,6 +20,7 @@ uId3 = config_datas['sensor3']['id']
 uId4 = config_datas['sensor4']['id']
 uId5 = config_datas['sensor5']['id']
 uId6 = config_datas['sensor6']['id']
+print(uId1)
 
 
 
@@ -94,6 +95,7 @@ def average(data_list):
 
 def sendData(data, sensor_uId):
     response_data = urequests.post(url, json={"value": data, "sensor": sensor_uId})
+    print(response_data.status_code)
     if response_data.status_code != 201:
         print(response_data.status_code)
         machine.reset()
@@ -155,6 +157,7 @@ def main():
                 #print('main measure ', i)
                 time.sleep(1)
                 data1 = measure(adc1, imp1, rev1)
+                print(data1)
                 sendData(data1, 'l1')
                 time.sleep(1)
                 data2 = measure(adc2, imp2, rev2)
